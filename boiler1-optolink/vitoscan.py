@@ -9,7 +9,8 @@ print("init",s.read(1).hex())
 def rd(a,n):
     b=bytes([5,0,1,a>>8,a&255,n]);s.write(b'\x41'+b+bytes([sum(b)&255]))
     r=s.read(9+n);return r[8:8+n].hex() if len(r)==9+n and r[0]==6 and r[3]==1 else "ERR "+r.hex()
-for name,a,n in [("mode",0x2323,1),("cur_mode",0x2500,1),("frost",0x2510,1),
- ("burner",0x55D3,1),("modulation",0xA38F,2),("fault",0x0A82,1),("hc_pump",0x2906,1),("int_pump",0x7660,1)]:
+L=[("mode",0x2323,1),("cur_mode",0x2500,1),("burner",0x55D3,1),("modulation",0xA38F,2),("fault",0x0A82,1),("hc_pump",0x2906,1),("int_pump",0x7660,1),
+ ("flue",0x0816,2),("common_flow",0x081A,2),("flow_set",0x2544,2),("burn_hours",0x08A7,4),("burn_starts",0x088A,4),("slope",0x27D3,1),("level",0x27D4,1)]
+for name,a,n in L:
     print(f"{name:11s} {a:#06x} {rd(a,n)}")
 s.close()

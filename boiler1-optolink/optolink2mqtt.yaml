@@ -81,3 +81,44 @@ registers_poll_list:
     length: 2
     scale_factor: 0.1
     ha_discovery: {name: "Burner Modulation", platform: sensor, unit_of_measurement: "%", state_class: measurement}
+  - name: flue_gas_temperature
+    sampling_period_seconds: 60
+    register: 0x0816
+    length: 2
+    scale_factor: 0.1
+    ha_discovery: {name: "Flue Gas Temperature", platform: sensor, device_class: temperature, unit_of_measurement: "°C"}
+  - name: common_flow_temperature
+    sampling_period_seconds: 30
+    register: 0x081A
+    length: 2
+    scale_factor: 0.1
+    ha_discovery: {name: "Header Temperature", platform: sensor, device_class: temperature, unit_of_measurement: "°C"}
+  - name: flow_setpoint
+    sampling_period_seconds: 60
+    register: 0x2544
+    length: 2
+    scale_factor: 0.1
+    ha_discovery: {name: "Flow Setpoint", platform: sensor, device_class: temperature, unit_of_measurement: "°C"}
+  - name: burner_hours
+    sampling_period_seconds: 600
+    register: 0x08A7
+    length: 4
+    scale_factor: 0.000277778
+    ha_discovery: {name: "Burner Hours", platform: sensor, unit_of_measurement: "h", state_class: total_increasing}
+  - name: burner_starts
+    sampling_period_seconds: 300
+    register: 0x088A
+    length: 4
+    ha_discovery: {name: "Burner Starts", platform: sensor, state_class: total_increasing}
+  - name: curve_slope
+    sampling_period_seconds: 3600
+    register: 0x27D3
+    length: 1
+    scale_factor: 0.1
+    ha_discovery: {name: "Heating Curve Slope", platform: sensor, entity_category: diagnostic}
+  - name: curve_level
+    sampling_period_seconds: 3600
+    register: 0x27D4
+    length: 1
+    signed: true
+    ha_discovery: {name: "Heating Curve Level", platform: sensor, unit_of_measurement: "K", entity_category: diagnostic}

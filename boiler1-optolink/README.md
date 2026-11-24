@@ -24,6 +24,16 @@ using the CP2102 cable from the Vitoconnect 100 OPTO1.
 | Burner | 0x55D3 | 1 | >0 = on | 0x24 running, 00 off |
 | Burner modulation | 0xA38F | 2 | 0.1 % (assumed) | 309 running, 0 off; scale not checked vs boiler |
 | Boiler setpoint | 0x555A | 2 | 0.1 | works, not polled |
+| Flue gas temperature | 0x0816 | 2 | 0.1 | 41.6 °C with boiler at 45 °C |
+| Common flow (header sensor) | 0x081A | 2 | 0.1 | hydraulic separator sensor |
+| Flow setpoint A1 | 0x2544 | 2 | 0.1 | outdoor-reset target |
+| Burner hours | 0x08A7 | 4 | seconds ÷ 3600 | 7,118 h |
+| Burner starts | 0x088A | 4 | 1 | 3,177 |
+| Heating curve slope A1 | 0x27D3 | 1 | 0.1 | 1.6 |
+| Heating curve level A1 | 0x27D4 | 1 | 1 signed | -4 K |
+
+Not connected on this boiler (read 20.0 °C = empty input): 0x0814 outlet, 0x0812 DHW, 0x0896 room (no Vitotrol).
+Unclear: 0x7663 pump speed (reads 01).
 
 Not working: 0x2510 (frost protection) – boiler returns an error frame.
 
