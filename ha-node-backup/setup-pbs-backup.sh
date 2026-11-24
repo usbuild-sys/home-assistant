@@ -22,10 +22,11 @@ FP=$(echo | openssl s_client -connect "$PBS_IP:8007" 2>/dev/null | openssl x509 
 echo "   $FP"
 
 echo "== 3/6 Finding datastores"
-STORES=$(pvesm scan pbs "$PBS_IP" "$PBS_USER" --password "$PBS_PASS" --fingerprint "$FP" | awk 'NR>0{print $1}')
+STORES=$(pvesm scan pbs "$PBS_IP" "$PBS_USER" --password "$PBS_PASS" --fingerprint "$FP" --output-format json \
+  | python3 -c 'import json,sys; [print(d["store"]) for d in json.load(sys.stdin)]')
 echo "$STORES" | sed 's/^/   /'
 N=$(echo "$STORES" | grep -c . || true)
-if [ "$N" -eq 1 ]; then DS=$STORES; else read -rp "Which datastore? " DS; fi
+if [ "$N" -eq 1 ]; then DS=$STORES; else read -rp "Which datastore? Type the LOCAL one (not the B2 one): " DS; fi
 echo "   using datastore: $DS"
 
 echo "== 4/6 Adding storage '$STORE_ID'"
