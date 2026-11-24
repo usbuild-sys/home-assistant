@@ -1,0 +1,83 @@
+# /etc/optolink2mqtt/optolink2mqtt.yaml  (LXC 101 "optolink" on ha-node)
+# MQTT password is NOT here: set MQTT_BROKER_PASSWORD in /etc/optolink2mqtt/env
+logging:
+  level: INFO
+optolink:
+  serial_port: '/dev/serial/by-id/usb-Silicon_Labs_CP2102_USB_to_UART_Bridge_Controller_0001-if00-port0'
+mqtt:
+  broker:
+    host: 172.17.1.125
+    port: 1883
+    username: optolink
+  clientid: optolink2mqtt-boiler1
+  ha_discovery:
+    enabled: true
+    topic: homeassistant
+    device_name: "Vitodens_Boiler_1"   # no spaces: HA discovery topics allow only [a-zA-Z0-9_-]
+registers_poll_list:
+  - name: outdoor_temperature
+    sampling_period_seconds: 30
+    register: 0x5525
+    length: 2
+    scale_factor: 0.1
+    signed: true
+    ha_discovery:
+      name: "Outdoor Temperature"
+      platform: sensor
+      device_class: temperature
+      unit_of_measurement: "°C"
+  - name: boiler_temperature
+    sampling_period_seconds: 30
+    register: 0x0810
+    length: 2
+    scale_factor: 0.1
+    signed: true
+    ha_discovery:
+      name: "Boiler Water Temperature"
+      platform: sensor
+      device_class: temperature
+      unit_of_measurement: "°C"
+  - name: room_setpoint
+    sampling_period_seconds: 60
+    register: 0x2306
+    length: 1
+    scale_factor: 1
+    signed: false
+    ha_discovery:
+      name: "Room Set Temperature"
+      platform: sensor
+      device_class: temperature
+      unit_of_measurement: "°C"
+  - name: operating_mode
+    sampling_period_seconds: 60
+    register: 0x2323
+    length: 1
+    enum: {0: "Off", 1: "DHW only", 2: "Heating + DHW", 3: "Reduced", 4: "Normal"}
+    ha_discovery: {name: "Operating Mode", platform: sensor, device_class: enum}
+  - name: current_mode
+    sampling_period_seconds: 60
+    register: 0x2500
+    length: 1
+    enum: {0: "Off", 1: "Reduced", 2: "Normal", 3: "Permanent Normal"}
+    ha_discovery: {name: "Current Mode", platform: sensor, device_class: enum}
+  - name: fault
+    sampling_period_seconds: 60
+    register: 0x0A82
+    length: 1
+    ha_discovery: {name: "Fault", platform: binary_sensor, device_class: problem, payload_on: "1", payload_off: "0"}
+  - name: circuit_pump
+    sampling_period_seconds: 30
+    register: 0x2906
+    length: 1
+    ha_discovery: {name: "Circuit Pump", platform: binary_sensor, device_class: running, payload_on: "1", payload_off: "0"}
+  - name: burner
+    sampling_period_seconds: 15
+    register: 0x55D3
+    length: 1
+    ha_discovery: {name: "Burner", platform: binary_sensor, device_class: running, value_template: "{{ 'ON' if value|int > 0 else 'OFF' }}", payload_on: "ON", payload_off: "OFF"}
+  - name: burner_modulation
+    sampling_period_seconds: 15
+    register: 0xA38F
+    length: 2
+    scale_factor: 0.1
+    ha_discovery: {name: "Burner Modulation", platform: sensor, unit_of_measurement: "%", state_class: measurement}

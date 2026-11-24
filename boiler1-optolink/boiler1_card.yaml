@@ -1,0 +1,58 @@
+type: picture-elements
+image: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDgwIiB2aWV3Qm94PSIwIDAgODAwIDQ4MCI+CjxyZWN0IHdpZHRoPSI4MDAiIGhlaWdodD0iNDgwIiBmaWxsPSIjNmE2MzgwIi8+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI5NSIgZmlsbD0iIzYxNWE3NyIvPgo8bGluZSB4MT0iMCIgeTE9Ijk2IiB4Mj0iODAwIiB5Mj0iOTYiIHN0cm9rZT0iI2Q2ZTRlZSIgc3Ryb2tlLXdpZHRoPSIzIi8+Cjxwb2x5bGluZSBwb2ludHM9IjM1MCwzNTUgMzUwLDIwNSA1MjUsMTE1IDcwMCwyMDUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2Q2ZTRlZSIgc3Ryb2tlLXdpZHRoPSI4IiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+Cjx0ZXh0IHg9IjIwMCIgeT0iMzE4IiBmaWxsPSIjZDZlNGVlIiBvcGFjaXR5PSIuNzUiIGZvbnQtc2l6ZT0iMTgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJEZWphVnUgU2FucywgQXJpYWwsIHNhbnMtc2VyaWYiPk91dGRvb3I8L3RleHQ+Cjx0ZXh0IHg9IjUyNSIgeT0iMzE4IiBmaWxsPSIjZDZlNGVlIiBvcGFjaXR5PSIuNzUiIGZvbnQtc2l6ZT0iMTgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJEZWphVnUgU2FucywgQXJpYWwsIHNhbnMtc2VyaWYiPlJvb20gc2V0PC90ZXh0Pgo8bGluZSB4MT0iMCIgeTE9IjM3MiIgeDI9IjgwMCIgeTI9IjM3MiIgc3Ryb2tlPSIjZDZlNGVlIiBzdHJva2Utd2lkdGg9IjIiIG9wYWNpdHk9Ii41Ii8+Cjx0ZXh0IHg9IjMwIiB5PSI0MzAiIGZpbGw9IiNkNmU0ZWUiIGZvbnQtc2l6ZT0iMzQiIGZvbnQtd2VpZ2h0PSJib2xkIiBmb250LWZhbWlseT0iRGVqYVZ1IFNhbnMsIEFyaWFsLCBzYW5zLXNlcmlmIj5Cb2lsZXIgdGVtcGVyYXR1cmU8L3RleHQ+Cjwvc3ZnPg=="
+elements:
+  - type: conditional
+    conditions:
+      - entity: sensor.vitodens_boiler_1_operating_mode
+        state: "Heating + DHW"
+    elements:
+      - type: icon
+        icon: mdi:faucet
+        style: {top: 12%, left: 7%, color: "#d6e4ee", "--mdc-icon-size": 40px}
+      - type: icon
+        icon: mdi:radiator
+        style: {top: 12%, left: 14%, color: "#d6e4ee", "--mdc-icon-size": 40px}
+  - type: conditional
+    conditions:
+      - entity: sensor.vitodens_boiler_1_operating_mode
+        state: "DHW only"
+    elements:
+      - type: icon
+        icon: mdi:faucet
+        style: {top: 12%, left: 7%, color: "#d6e4ee", "--mdc-icon-size": 40px}
+  - type: state-label
+    entity: sensor.vitodens_boiler_1_operating_mode
+    style: {top: 12%, left: 45%, color: "#d6e4ee", font-size: 22px}
+  - type: conditional
+    conditions:
+      - entity: sensor.vitodens_boiler_1_current_mode
+        state: "Normal"
+    elements:
+      - type: icon
+        icon: mdi:white-balance-sunny
+        style: {top: 31%, left: 9%, color: "#d6e4ee", "--mdc-icon-size": 48px}
+  - type: conditional
+    conditions:
+      - entity: binary_sensor.vitodens_boiler_1_burner
+        state: "on"
+    elements:
+      - type: icon
+        icon: mdi:fire
+        style: {top: 66%, left: 92%, color: "#ffb74d", "--mdc-icon-size": 48px}
+  - type: conditional
+    conditions:
+      - entity: binary_sensor.vitodens_boiler_1_fault
+        state: "on"
+    elements:
+      - type: icon
+        icon: mdi:alert
+        style: {top: 12%, left: 88%, color: "#ef4444", "--mdc-icon-size": 48px}
+  - type: state-label
+    entity: sensor.vitodens_boiler_1_outdoor_temperature
+    style: {top: 55%, left: 25%, color: "#d6e4ee", font-size: 32px}
+  - type: state-label
+    entity: sensor.vitodens_boiler_1_room_set_temperature
+    style: {top: 53%, left: 66%, color: "#d6e4ee", font-size: 40px}
+  - type: state-label
+    entity: sensor.vitodens_boiler_1_boiler_water_temperature
+    style: {top: 87%, left: 85%, color: "#d6e4ee", font-size: 34px, font-weight: bold}
