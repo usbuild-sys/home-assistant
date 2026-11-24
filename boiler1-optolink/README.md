@@ -38,10 +38,12 @@ Unclear: 0x7663 pump speed (reads 01).
 Not working: 0x2510 (frost protection) – boiler returns an error frame.
 
 ## HA dashboard
-`boiler1_card.yaml` – Picture elements card (no HACS) styled like the Vitotronic screen.
+- `boiler1_card.yaml` – Picture elements card (no HACS) styled like the Vitotronic screen.
+- `boiler1_data_card.yaml` – "Boiler 1 Data" view: status, temperatures, 24 h graphs, burner starts per day, counters.
 Entities: `sensor.vitodens_boiler_1_*`, `binary_sensor.vitodens_boiler_1_*`.
 
 ## Gotchas
+- **optolink2mqtt 1.2.7 bug:** `ha_discovery.value_template` passes schema validation but is not sent to HA, so the Burner binary_sensor (raw value 0x24 when firing) shows *Unknown*. Run `patch-optolink2mqtt.sh` after install and after every pip upgrade.
 - HA discovery topics allow only `[a-zA-Z0-9_-]`; device name with spaces is silently ignored.
 - Stop the service before running `vitoscan.py` (serial port is exclusive).
 - Long pastes into the Proxmox web console get scrambled; use SSH and keep heredocs short.

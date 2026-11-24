@@ -1,0 +1,68 @@
+type: vertical-stack
+cards:
+  - type: entities
+    title: Boiler 1 – Status
+    entities:
+      - entity: binary_sensor.vitodens_boiler_1_burner
+        name: Burner
+      - entity: sensor.vitodens_boiler_1_burner_modulation
+        name: Modulation
+      - entity: binary_sensor.vitodens_boiler_1_circuit_pump
+        name: Circuit pump
+      - entity: binary_sensor.vitodens_boiler_1_fault
+        name: Fault
+      - entity: binary_sensor.vitodens_boiler_1_opto_connection_status
+        name: Optolink link
+  - type: entities
+    title: Temperatures
+    entities:
+      - entity: sensor.vitodens_boiler_1_boiler_water_temperature
+        name: Boiler water
+      - entity: sensor.vitodens_boiler_1_flow_setpoint
+        name: Flow setpoint (outdoor reset)
+      - entity: sensor.vitodens_boiler_1_header_temperature
+        name: Header (hydraulic separator)
+      - entity: sensor.vitodens_boiler_1_flue_gas_temperature
+        name: Flue gas
+      - entity: sensor.vitodens_boiler_1_outdoor_temperature
+        name: Outdoor
+  - type: history-graph
+    title: Last 24 hours
+    hours_to_show: 24
+    entities:
+      - entity: sensor.vitodens_boiler_1_boiler_water_temperature
+        name: Boiler
+      - entity: sensor.vitodens_boiler_1_flow_setpoint
+        name: Setpoint
+      - entity: sensor.vitodens_boiler_1_header_temperature
+        name: Header
+      - entity: sensor.vitodens_boiler_1_flue_gas_temperature
+        name: Flue gas
+  - type: history-graph
+    title: Burner (24 h)
+    hours_to_show: 24
+    entities:
+      - entity: binary_sensor.vitodens_boiler_1_burner
+        name: Burner
+      - entity: sensor.vitodens_boiler_1_burner_modulation
+        name: Modulation
+  - type: statistics-graph
+    title: Burner starts per day
+    entities:
+      - sensor.vitodens_boiler_1_burner_starts
+    stat_types:
+      - change
+    period: day
+    days_to_show: 14
+    chart_type: bar
+  - type: entities
+    title: Counters & settings
+    entities:
+      - entity: sensor.vitodens_boiler_1_burner_hours
+        name: Burner hours
+      - entity: sensor.vitodens_boiler_1_burner_starts
+        name: Burner starts
+      - entity: sensor.vitodens_boiler_1_heating_curve_slope
+        name: Heating curve slope
+      - entity: sensor.vitodens_boiler_1_heating_curve_level
+        name: Heating curve level
