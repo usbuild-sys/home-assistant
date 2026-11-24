@@ -11,3 +11,5 @@ Vitoconnect OPTO1, optolink2mqtt, MQTT, Home Assistant, ESPHome, boiler, hydroni
 - [`boiler1-optolink/`](boiler1-optolink/) – optolink2mqtt config with **verified register
   addresses** (outdoor, boiler water, room setpoint, operating mode, burner, modulation, pump, fault),
   a raw register scanner script, and a Vitotronic-style Home Assistant dashboard card (no HACS).
+- [`panel-test/`](panel-test/) – ESPHome/LVGL config for the 7" Waveshare wall panel: heating gauges page and a
+  swipe-to Boiler 1 page that mirrors the Vitotronic display with live mode, burner and fault icons.
