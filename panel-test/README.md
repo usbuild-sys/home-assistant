@@ -14,6 +14,7 @@ Hardware package: `agillis/esphome-modular-lvgl-buttons` (waveshare-esp32-s3-tou
 - Icons: Material Design Icons webfont, glyphs F1B29 faucet, F0438 radiator, F05A8 sun, F0238 fire, F0026 alert.
 - Flame is driven by `sensor.vitodens_boiler_1_burner_modulation` (> 0), not the Burner binary_sensor:
   the panel never reacted to the binary_sensor going from unknown to on.
-- Swipe uses `on_swipe_left` / `on_swipe_right` page triggers + `lvgl.page.next/previous` (MOVE_LEFT/RIGHT).
+- Swipe uses `on_swipe_left` / `on_swipe_right` page triggers + `lvgl.page.next/previous` with `animation: NONE`.
+  Slide animations (MOVE_*) stutter on this board (full 800x480 software redraw into PSRAM, ~10-15 fps), so pages switch instantly.
 - Secrets needed in ESPHome `secrets.yaml`: `panel_test_api_key`, `wifi_ssid`, `wifi_password`, `ap_password`, `ota_password`.
   (The live config in ESPHome Builder has the API key inline; it is replaced with a secret here.)

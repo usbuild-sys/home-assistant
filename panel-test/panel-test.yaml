@@ -232,8 +232,7 @@ lvgl:
       bg_color: 0x101418
       on_swipe_left:
         - lvgl.page.next:
-            animation: MOVE_LEFT
-            time: 300ms
+            animation: NONE
       widgets:
         - label:
             id: clock_label
@@ -436,8 +435,7 @@ lvgl:
       bg_color: 0x6A6380
       on_swipe_right:
         - lvgl.page.previous:
-            animation: MOVE_RIGHT
-            time: 300ms
+            animation: NONE
       widgets:
         # top bar
         - obj:
