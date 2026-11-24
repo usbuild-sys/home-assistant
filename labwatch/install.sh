@@ -29,7 +29,6 @@ CONF
 fi
 
 cat > /etc/cron.d/labwatch <<'CRON'
-*/5 * * * * root /usr/local/bin/labwatch.sh check
-2 8 * * * root /usr/local/bin/labwatch.sh summary
+0 7 * * * root /usr/local/bin/labwatch.sh summary
 CRON
 /usr/local/bin/labwatch.sh test && echo "Installed. Check Telegram for the test message."

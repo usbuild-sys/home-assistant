@@ -32,12 +32,23 @@ case "$1" in
       fi
     done ;;
   summary)
-    msg="Lab daily check $(date '+%b %d'):"
+    # morning report: a host is only reported down after 3 failed tries, 2 min apart
+    down=(); ok=0
     for entry in "${HOSTS[@]}"; do
-      ip=${entry%%=*}; name=${entry#*=}
-      if up "$ip"; then msg+=$'\n'"✅ $name"; else msg+=$'\n'"🔴 $name ($ip) DOWN"; fi
+      ip=${entry%%=*}; name=${entry#*=}; alive=0
+      for try in 1 2 3; do
+        if up "$ip"; then alive=1; break; fi
+        [ $try -lt 3 ] && sleep 120
+      done
+      if [ $alive = 1 ]; then ok=$((ok+1)); else down+=("🔴 $name ($ip)"); fi
     done
-    send "$msg" ;;
+    if [ ${#down[@]} -eq 0 ]; then
+      send "✅ Lab check $(date '+%b %d'): all ${ok} hosts up"
+    else
+      msg="⚠️ Lab check $(date '+%b %d'): ${#down[@]} DOWN, ${ok} up"
+      for d in "${down[@]}"; do msg+=$'\n'"$d"; done
+      send "$msg"
+    fi ;;
   test) send "labwatch test from $(hostname) ✅" ;;
   *) echo "usage: $0 check|summary|test"; exit 1 ;;
 esac
